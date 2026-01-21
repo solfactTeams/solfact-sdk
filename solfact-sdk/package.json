@@ -1,0 +1,23 @@
+{
+  "name": "solfact-sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for Solfact Anchor program (SOL staking FACT/HOAX voting)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/test.ts",
+    "test": "ts-node src/test.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.27.0",
+    "@solana/web3.js": "^1.93.0",
+    "bn.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
+  }
+}

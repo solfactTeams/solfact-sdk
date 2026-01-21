@@ -1,0 +1,102 @@
+{
+  "version": "0.1.0",
+  "name": "solfact",
+  "instructions": [
+    {
+      "name": "createPoll",
+      "accounts": [
+        { "name": "creator", "isMut": true, "isSigner": true },
+        { "name": "poll", "isMut": true, "isSigner": false },
+        { "name": "escrow", "isMut": true, "isSigner": false },
+        { "name": "creatorStake", "isMut": false, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "newsHash", "type": "string" },
+        { "name": "deadlineTs", "type": "i64" },
+        { "name": "creatorChoice", "type": "bool" }
+      ]
+    },
+    {
+      "name": "vote",
+      "accounts": [
+        { "name": "voter", "isMut": true, "isSigner": true },
+        { "name": "poll", "isMut": true, "isSigner": false },
+        { "name": "voterStake", "isMut": false, "isSigner": false },
+        { "name": "vote", "isMut": true, "isSigner": false },
+        { "name": "escrow", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "choice", "type": "bool" }
+      ]
+    },
+    {
+      "name": "resolvePoll",
+      "accounts": [
+        { "name": "caller", "isMut": true, "isSigner": true },
+        { "name": "poll", "isMut": true, "isSigner": false },
+        { "name": "escrow", "isMut": true, "isSigner": false }
+      ],
+      "args": []
+    },
+    {
+      "name": "claimReward",
+      "accounts": [
+        { "name": "claimer", "isMut": true, "isSigner": true },
+        { "name": "poll", "isMut": true, "isSigner": false },
+        { "name": "vote", "isMut": true, "isSigner": false },
+        { "name": "escrow", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "poll",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "news_hash", "type": "string" },
+          { "name": "creator", "type": "publicKey" },
+          { "name": "deadline", "type": "i64" },
+          { "name": "total_yes", "type": "u64" },
+          { "name": "total_no", "type": "u64" },
+          { "name": "resolved", "type": "bool" },
+          { "name": "winner", "type": "u8" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "escrow",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "poll", "type": "publicKey" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "voteAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "voter", "type": "publicKey" },
+          { "name": "poll", "type": "publicKey" },
+          { "name": "choice", "type": "u8" },
+          { "name": "stake", "type": "u64" },
+          { "name": "claimed", "type": "bool" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "address": "SoLFACt1111111111111111111111111111111111"
+  }
+}
