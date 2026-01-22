@@ -1,4 +1,4 @@
-# Solfact: SOL-Based Escrow Staking Poll Voting System
+# Solfact: SOL-Based Escrow Staking Poll Voting System.
 
 A decentralized fact-checking protocol on Solana where users stake SOL to vote on news credibility (FACT vs HOAX). Built with Anchor and TypeScript, featuring an escrow-based reward distribution mechanism.
 
