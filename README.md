@@ -1,6 +1,6 @@
 # Solfact: SOL-Based Escrow Staking Poll Voting System.
 
-A decentralized fact-checking protocol on Solana where users stake SOL to vote on news credibility (FACT vs HOAX). Built with Anchor and TypeScript, featuring an escrow-based reward distribution mechanism.
+A decentralized fact-checking protocol on Solana where users stake SOL to vote on news credibility (FACT vs FAKE). Built with Anchor and TypeScript, featuring an escrow-based reward distribution mechanism.
 
 ## 📋 Table of Contents
 - [Overview](#overview)
@@ -16,7 +16,7 @@ A decentralized fact-checking protocol on Solana where users stake SOL to vote o
 
 ## 🎯 Overview
 
-Solfact is a decentralized fact-checking system that leverages blockchain technology and economic incentives to establish truth. Users stake SOL tokens to vote whether news is FACT or HOAX. Winners receive rewards from the escrow pool proportional to their stake.
+Solfact is a decentralized fact-checking system that leverages blockchain technology and economic incentives to establish truth. Users stake SOL tokens to vote whether news is FACT or FAKE. Winners receive rewards from the escrow pool proportional to their stake.
 
 ### Key Features
 - **SOL-Based Staking**: Economic skin-in-the-game mechanism
@@ -28,7 +28,7 @@ Solfact is a decentralized fact-checking system that leverages blockchain techno
 ### How It Works
 
 ```
-1. Creator creates a poll with a deadline and stakes SOL (votes FACT or HOAX)
+1. Creator creates a poll with a deadline and stakes SOL (votes FACT or FAKE)
 2. Voters stake SOL to vote on the poll outcome
 3. After deadline, poll is resolved - majority wins
 4. Winners claim rewards from escrow (losers' stakes)
@@ -86,9 +86,9 @@ pub struct Poll {
     pub creator: Pubkey,        // Poll creator address
     pub deadline: i64,          // Unix timestamp deadline
     pub total_yes: u64,         // Total lamports staked on FACT
-    pub total_no: u64,          // Total lamports staked on HOAX
+    pub total_no: u64,          // Total lamports staked on FAKE
     pub resolved: bool,         // Whether poll is resolved
-    pub winner: u8,             // 0=none, 1=FACT, 2=HOAX
+    pub winner: u8,             // 0=none, 1=FACT, 2=FAKE
     pub bump: u8,               // PDA bump seed
 }
 ```
@@ -98,7 +98,7 @@ pub struct Poll {
 pub struct VoteAccount {
     pub voter: Pubkey,          // Voter address
     pub poll: Pubkey,           // Associated poll
-    pub choice: u8,             // 1=FACT, 2=HOAX
+    pub choice: u8,             // 1=FACT, 2=FAKE
     pub stake: u64,             // Lamports staked
     pub claimed: bool,          // Reward claimed status
     pub bump: u8,               // PDA bump seed
@@ -240,8 +240,8 @@ const votePda = await sdk.voteFact(
   0.5 * LAMPORTS_PER_SOL
 );
 
-// Vote HOAX
-const votePda = await sdk.voteHoax(
+// Vote FAKE
+const votePda = await sdk.voteFAKE(
   voterKeypair,
   pollPda,
   newsHash,
@@ -272,9 +272,9 @@ await sdk.claimReward(
 
 ```typescript
 const pollState = await sdk.getFactCheckState(pollPda);
-console.log("Poll winner:", pollState.winner); // 1=FACT, 2=HOAX
+console.log("Poll winner:", pollState.winner); // 1=FACT, 2=FAKE
 console.log("Total FACT votes:", pollState.total_yes);
-console.log("Total HOAX votes:", pollState.total_no);
+console.log("Total FAKE votes:", pollState.total_no);
 ```
 
 ### Using the Program Directly
@@ -320,7 +320,7 @@ async createFactCheck(
 - `creatorKeypair`: Creator's keypair for signing
 - `news_hash`: Unique identifier for the news
 - `deadlineTs`: Unix timestamp for voting deadline
-- `creatorChoice`: Creator's vote (true=FACT, false=HOAX)
+- `creatorChoice`: Creator's vote (true=FACT, false=FAKE)
 - `createStakeLamports`: Amount to stake in lamports
 
 **Returns:** Poll PDA public key
@@ -343,11 +343,11 @@ async voteFact(
 
 ---
 
-##### `voteHoax()`
-Vote that news is HOAX with staked SOL.
+##### `voteFAKE()`
+Vote that news is FAKE with staked SOL.
 
 ```typescript
-async voteHoax(
+async voteFAKE(
   voterKeypair: Keypair,
   pollPda: PublicKey,
   news_hash: string,
